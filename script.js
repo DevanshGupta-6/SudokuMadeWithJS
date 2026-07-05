@@ -26,12 +26,11 @@ window.addEventListener('load', function(){
             this.canvas = canvas
             const btn = document.getElementById('check')
             const para = document.getElementById('result')
-            if(!this.game.gameOver && !this.game.isMouseDown){
-                this.canvas.addEventListener('pointerdown', (e)=>{
+            if(!this.game.gameOver){
+                this.canvas.addEventListener('click', (e)=>{
                     const rect = this.canvas.getBoundingClientRect()
                     const x = e.clientX - rect.left
                     const y = e.clientY - rect.top
-                    this.game.isMouseDown = true;
                     const clickedCell = this.game.cells.find(cell => {
                         return x > getPos(cell.xpos, cell.width) &&
                             x < (getPos(cell.xpos, cell.width) + cell.width) &&
@@ -59,9 +58,6 @@ window.addEventListener('load', function(){
                         this.game.keys.splice(this.game.keys.indexOf(e.key), 1);
                     }
                 });
-                this.canvas.addEventListener('pointerup', (e)=>{
-                    this.game.isMouseDown = false;
-                })
             }
             btn.addEventListener('click', (e)=>{
                 for(let i = 0; i<9; i++){
@@ -146,7 +142,6 @@ window.addEventListener('load', function(){
             }
             this.lost = false;
             this.gameOver = false;
-            this.isMouseDown = false;
         }
         
         draw(context){
